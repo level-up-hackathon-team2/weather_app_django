@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class WeatherConfig(AppConfig):
-    name = 'weather'
+class NHLWebAppConfig(AppConfig):
+    name = 'nhlwebapp'
