@@ -30,4 +30,4 @@ def index(request):
         weather_data.append(city_weather)
 
     context = {'weather_data' : weather_data, 'form' : form}
-    return render(request, 'weather/weather.html', context)
+    return render(request, 'nhlwebapp/nhlwebapp.html', context)
