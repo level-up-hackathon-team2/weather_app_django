@@ -46,7 +46,7 @@ def index(request):
             displayTeamName = team['fullName']
             ticketsURL = team['buySellTicketUrl']
             arenaCoords = team['arenaCoordinates'].split(",")
-            abv = team['nhlAbbrev']
+            abv = team['triCode']
 
             #https://stackoverflow.com/questions/45630606/can-i-get-accurate-geolocation-in-python-using-html5-location-tool
             #https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
