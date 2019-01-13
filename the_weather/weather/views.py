@@ -34,11 +34,11 @@ def index(request):
 
     team_stats = team_response['data']
     
+    displayTeamName = None
     for team in team_stats:
         if (team['teamId']==team_id):
             print("Team Name: " + team['fullName'] + " Active: " + team['active'] + " Arena Address: " + team['arenaAddress'])
-
-
+            displayTeamName = team['fullName']
 
     #print(response2)
 
@@ -59,7 +59,7 @@ def index(request):
         r = requests.get(url.format(city)).json()
 
         city_weather = {
-            'city' : city.name,
+            'city' : displayTeamName,
             'temperature' : r['main']['temp'],
             'description' : r['weather'][0]['description'],
             'icon' : r['weather'][0]['icon'],
