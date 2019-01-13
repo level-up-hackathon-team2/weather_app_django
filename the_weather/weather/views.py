@@ -25,8 +25,18 @@ def index(request):
     team_id = None
     for d in team_dicts:
         if(d['teamPlaceName'] == city):
-            team_id = d['id']
-    print(team_id)
+            team_id = d['mostRecentTeamId']
+    
+
+    team_data_url = 'https://records.nhl.com/site/api/team'
+
+    team_response = requests.get(team_data_url).json()
+
+    team_stats = team_response['data']
+    
+    for team in team_stats:
+        if (team['teamId']==team_id):
+            print("Team Name: " + team['teamName'] + " Active: " + team['active'] + " Arena Address: " + team['arenaAddress'])
 
 
 
