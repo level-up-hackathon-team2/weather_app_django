@@ -11,8 +11,7 @@ def index(request):
 
     search = None
     if request.method == 'POST':
-        search = request.POST.get('name','') # https://stackoverflow.com/questions/4162625/django-request-get-parameters
-        #print(city) # this is just for testing: you can remove it when done.
+        search = request.POST.get('name','').lower() # https://stackoverflow.com/questions/4162625/django-request-get-parameters
         # Doesn't save to database, but still loads from database.
         #form.save()
 
@@ -22,9 +21,9 @@ def index(request):
 
     team_id = None
     for d in team_dicts:
-        if( d['teamPlaceName'] == search or 
-            d['teamCommonName'] == search or 
-            d['teamPlaceName'] + ' ' +d['teamCommonName'] == search ):
+        if( d['teamPlaceName'].lower() == search or 
+            d['teamCommonName'].lower() == search or 
+            d['teamPlaceName'].lower() + ' ' +d['teamCommonName'].lower() == search ):
             team_id = d['mostRecentTeamId']
     
     team_data_url = 'https://records.nhl.com/site/api/team'
@@ -42,6 +41,9 @@ def index(request):
             ticketsURL = team['buySellTicketUrl']
             arenaCoords = team['arenaCoordinates'].split(",")
 
+            #https://stackoverflow.com/questions/45630606/can-i-get-accurate-geolocation-in-python-using-html5-location-tool
+            #https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
+
             response_data = requests.get('https://www.iplocation.net/go/ipinfo').text
             response_json_data = json.loads(response_data)
             location = response_json_data["loc"].split(",")
@@ -58,11 +60,6 @@ def index(request):
             distance = R * c
             distance = round(distance,2)
             print("Result:", distance)
-
-    #https://stackoverflow.com/questions/45630606/can-i-get-accurate-geolocation-in-python-using-html5-location-tool
- 
-
-    #https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
 
 
 
