@@ -2,10 +2,15 @@ import requests
 from django.shortcuts import render
 from .models import City
 from .forms import CityForm
+from django.http import HttpResponse
+from django.http import JsonResponse
 
 def index(request):
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=20e84c6dbae34e0d6ece4c8f8d0f4314'
-
+    url = 'https://records.nhl.com/site/api/franchise'
+    
+    
+    
+    """
     if request.method == 'POST':
         form = CityForm(request.POST)
         form.save()
@@ -28,6 +33,18 @@ def index(request):
         }
 
         weather_data.append(city_weather)
+    """
+    
 
-    context = {'weather_data' : weather_data, 'form' : form}
-    return render(request, 'weather/weather.html', context)
+    #context = {'weather_data' : weather_data, 'form' : form}
+    response = requests.get(url).json()
+    #final = r['data'][0]['data']
+    
+    response = response['data']
+    return JsonResponse(response, safe=False)
+    
+    
+
+    #return HttpResponse(final)
+    #return JsonResponse(final)
+    #render(request, 'weather/weather.html', context)
