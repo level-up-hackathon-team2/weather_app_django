@@ -34,12 +34,14 @@ def index(request):
     ticketsURL = None
     arenaCoords = None
     distance = None
+    displayTeamColor = None
     for team in team_stats:
         if (team['teamId']==team_id):
             print("Team Name: " + team['fullName'] + " Active: " + team['active'] + " Arena Address: " + team['arenaAddress'])
             displayTeamName = team['fullName']
             ticketsURL = team['buySellTicketUrl']
             arenaCoords = team['arenaCoordinates'].split(",")
+            displayTeamColor = team['homeJerseyColors']
 
             #https://stackoverflow.com/questions/45630606/can-i-get-accurate-geolocation-in-python-using-html5-location-tool
             #https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
@@ -85,7 +87,7 @@ def index(request):
             'city' : displayTeamName,
             'temperature' : "Distance from Current Location to Arena: " + str(distance),
             'description' : ticketsURL,
-            'icon' : r['weather'][0]['icon'],
+            'icon' : displayTeamColor,
         }
 
         weather_data.append(city_weather)
