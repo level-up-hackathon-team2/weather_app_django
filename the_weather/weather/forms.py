@@ -5,4 +5,4 @@ class CityForm(ModelForm):
     class Meta:
         model = City 
         fields = ['name']
-        widgets = {'name' : TextInput(attrs={'class' : 'input', 'placeholder' : 'Team'})}
+        widgets = {'name' : TextInput(attrs={'class' : 'input', 'placeholder' : 'Choose a Team'})}
