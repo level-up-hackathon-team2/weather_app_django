@@ -12,8 +12,9 @@ def index(request):
 
     city = None
     if request.method == 'POST':
-        city = request.POST.get('name','')
-        print(city)
+        city = request.POST.get('name','') # https://stackoverflow.com/questions/4162625/django-request-get-parameters
+        print(city) # this is just for testing: you can remove it when done.
+        # Doesn't save to database, but still loads from database.
         #form.save()
 
     url2 = 'https://records.nhl.com/site/api/franchise'
