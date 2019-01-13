@@ -36,7 +36,7 @@ def index(request):
     
     for team in team_stats:
         if (team['teamId']==team_id):
-            print("Team Name: " + team['teamName'] + " Active: " + team['active'] + " Arena Address: " + team['arenaAddress'])
+            print("Team Name: " + team['fullName'] + " Active: " + team['active'] + " Arena Address: " + team['arenaAddress'])
 
 
 
