@@ -6,18 +6,37 @@ from .forms import CityForm
 def index(request):
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=20e84c6dbae34e0d6ece4c8f8d0f4314'
 
-    url2 = 'https://statsapi.web.nhl.com/api/v1/teams/5/?expand=person.names'
-
-    team = '2' 
-
-    r2 = requests.get(url2)
-    print(r2.text)
 
 
 
+
+    city = None
     if request.method == 'POST':
-        form = CityForm(request.POST)
-        form.save()
+        city = request.POST.get('name','')
+        print(city)
+        #form.save()
+
+    url2 = 'https://records.nhl.com/site/api/franchise'
+
+    response2 = requests.get(url2).json()
+
+    team_dicts = response2['data']
+
+    team_id = None
+    for d in team_dicts:
+        if(d['teamPlaceName'] == city):
+            team_id = d['id']
+    print(team_id)
+
+
+
+    #print(response2)
+
+
+    #final = r2['data'][0]['data']
+
+    #print(final)
+
 
     form = CityForm()
 
