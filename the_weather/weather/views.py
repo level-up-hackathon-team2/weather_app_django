@@ -35,11 +35,11 @@ def index(request):
     team_response = requests.get(team_data_url).json()
     team_stats = team_response['data']
     
-    displayTeamName = None
-    ticketsURL = None
+    displayTeamName = "NHL League"
+    ticketsURL = "https://www.nhl.com/tickets"
     arenaCoords = None
-    distance = None
-    abv = None
+    distance = ""
+    abv = "NHL"
     for team in team_stats:
         if (team['teamId']==team_id):
             print("Team Name: " + team['fullName'] + " Active: " + team['active'] + " Arena Address: " + team['arenaAddress'])
@@ -66,6 +66,7 @@ def index(request):
             c = 2 * atan2(sqrt(a), sqrt(1 - a))
             distance = R * c
             distance = round(distance,2)
+            distance = "Distance from Current Location to Arena: " + str(distance) + " KM"
             print("Result:", distance)
 
 
@@ -90,7 +91,7 @@ def index(request):
 
         city_weather = {
             'city' : displayTeamName,
-            'temperature' : "Distance from Current Location to Arena: " + str(distance) + " ",
+            'temperature' : distance,
             'description' : ticketsURL,
             'icon' : abv,
         }
