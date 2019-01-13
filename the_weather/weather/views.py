@@ -30,6 +30,39 @@ def index(request):
             d['teamPlaceName'].lower() + ' ' +d['teamCommonName'].lower() == search) and
             d['lastSeasonId'] == None):
             team_id = d['mostRecentTeamId']
+            
+    team_string = None
+    game_date_string = None
+    game_city = None
+    game_venue = None
+    if team_id != None:     
+        # get next game on schedule        
+        next_game_url = 'https://statsapi.web.nhl.com/api/v1/teams/' + str(team_id) + '/?expand=team.schedule.next'
+        game_sched = requests.get(next_game_url).json()
+
+        # get versus teams 
+        teams = game_sched['teams'][0]['nextGameSchedule']['dates'][0]['games'][0]['teams']
+        team_string = teams['away']['team']['name'] + ' versus ' + teams['home']['team']['name']
+        
+        # get game date
+        game_date = game_sched['teams'][0]['nextGameSchedule']['dates'][0]['games'][0]
+        game_date_string = game_date['gameDate']
+        
+        # get game location 
+        game_city = game_sched['teams'][0]['venue']['city']
+        game_venue = game_sched['teams'][0]['venue']['name']
+        
+        print('------------------------')
+        print(game_city)
+        print(game_venue)
+        print(game_date_string)
+        print(team_string)
+        print('----------------------')
+       
+    # team data
+    team_data_url = 'https://records.nhl.com/site/api/team'
+    team_response = requests.get(team_data_url).json()
+    team_stats = team_response['data']
     
     team_data_url = 'https://records.nhl.com/site/api/team'
     team_response = requests.get(team_data_url).json()
@@ -99,7 +132,11 @@ def index(request):
             'description' : ticketsURL,
             'icon' : abv,
             'instagram' : instagram,
-            'twitter' : twitter
+            'twitter' : twitter,
+            'game_city' : game_city,
+            'game_venue' : game_venue,
+            'game_date_string' : game_date_string,
+            'team_string' : team_string
         }
 
         weather_data.append(city_weather)
