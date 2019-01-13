@@ -21,9 +21,10 @@ def index(request):
 
     team_id = None
     for d in team_dicts:
-        if( d['teamPlaceName'].lower() == search or 
+        if((d['teamPlaceName'].lower() == search or 
             d['teamCommonName'].lower() == search or 
-            d['teamPlaceName'].lower() + ' ' +d['teamCommonName'].lower() == search ):
+            d['teamPlaceName'].lower() + ' ' +d['teamCommonName'].lower() == search) and
+            d['lastSeasonId'] == None):
             team_id = d['mostRecentTeamId']
     
     team_data_url = 'https://records.nhl.com/site/api/team'
