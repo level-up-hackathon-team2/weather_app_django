@@ -21,6 +21,10 @@ def index(request):
 
     team_id = None
     for d in team_dicts:
+        if search == 'montreal':
+            team_id = 8
+            break 
+            
         if((d['teamPlaceName'].lower() == search or 
             d['teamCommonName'].lower() == search or 
             d['teamPlaceName'].lower() + ' ' +d['teamCommonName'].lower() == search) and
