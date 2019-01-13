@@ -1,6 +1,3 @@
-Code for my tutorial here: https://youtu.be/v7xjdXWZafY [Anthony Herbert, original author]
+Original Author = Anthony Herbert [https://youtu.be/v7xjdXWZafY]
 
-test
-
-test origin
-
+Changes from orginal code made to check NHL team info
